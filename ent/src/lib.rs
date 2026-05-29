@@ -65,6 +65,7 @@
 //!    against fresh upstream/rss/cve caches?
 
 use serde::{Deserialize, Serialize};
+use std::error::Error;
 
 /// Will be read from a checked out clone on each refresh
 #[derive(Debug, Deserialize, PartialEq, Serialize)]
@@ -77,12 +78,26 @@ pub struct RecipeMonitor {
     pub rss_url: Option<String>,
 }
 
+impl RecipeMonitor {
+    fn build() { // -> Self when ready
+        // attempt to open some file
+        // attempt to yaml serialise it
+        // create and return a RecipeMonitor with the relevant fields
+    }
+}
+
 /// Only valid if an upstream id is found.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ReleaseMonitor {
     pub upstream_id: u32,
     pub upstream_name: String,
     pub latest_version: String,
+}
+
+impl ReleaseMonitor {
+    // -> Self when ready
+    // assume the file is open and serializable
+    // create and return a ReleaseMonitor with the relevant fields
 }
 
 /// Only valid if an upstream rss feed is found.
@@ -94,18 +109,38 @@ pub struct RssMonitor {
     pub latest_version: String,
 }
 
+impl RssMonitor {
+    // -> Self when ready
+    // assume the file is open and serializable
+    // create and return an RssMonitor with the relevant fields
+}
+
 /// Need to do some more research on this
 #[derive(Debug, Deserialize, Serialize)]
 pub struct CveMonitor {}
 
 /// query the upstream db, create structs, stream structs to cache
-fn build_cache() {}
+///
+/// There is potentially scope for supplying an optional, existing
+/// cache cdb as the starting point (to reduce traffic).
+///
+/// The idea is that, if the version info in the supplied cache have
+/// not changed in the tree, use the cached values.
+fn build_cache() -> Result<(), Box<dyn Error>> {
+    Ok(())
+}
 /// stream structs from cache (run build_cache if it does not exist)
-fn read_cache() {}
+fn read_cache() -> Result<(), Box<dyn Error>> {
+    Ok(())
+}
 /// prepare a collection of updatable recipes
-fn compute_updates() {}
+fn compute_updates() -> Result<(), Box<dyn Error>> {
+    Ok(())
+}
 /// show the collection of updatable recipes
-fn show_updates() {}
+fn show_updates() -> Result<(), Box<dyn Error>> {
+    Ok(())
+}
 
 #[cfg(test)]
 mod tests {
