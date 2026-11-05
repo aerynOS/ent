@@ -50,7 +50,7 @@ enum CheckCommands {
     Security,
 }
 
-static VCS_DELIMITERS: [&str; 3] = ["+git", "+vcs", "+mur"];
+static VCS_DELIMITERS: [&str; 4] = ["~git", "+git", "+vcs", "+mur"];
 
 // This function scans the directory for recipes and parses them
 fn scan_dir(
