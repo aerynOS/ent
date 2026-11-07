@@ -2,8 +2,7 @@
 
 `ent` is a tool for working with packaging recipes in git trees/monorepos.
 
-Primarily it is intended for use with [AerynOS](https://aerynos.com) packaging, and to
-a limited degree, [Solus](https://getsol.us) packaging.
+Primarily it is intended for use with the [aerynOS packaging repository](https://github.com/aerynOS/recipes), and to a limited degree, the [Solus packaging repository](https://github.com/getsolus/packages/).
 
 ## Installation
 
@@ -14,7 +13,9 @@ git clone https://github.com/AerynOS/ent.git
 cd ent
 cargo install --path ent
 ```
+
 By default, `ent` is built with support for `stone` recipes. If you need support for `ypkg`, you'll need to install it as an optional feature:
+
 ```
 cargo install --path ent --features ypkg
 ```
@@ -35,4 +36,4 @@ ent check updates
 
 ## Copyright
 
-`ent` is licensed under the terms of the MPL-2.0 license. See the [LICENSE](LICENSE) file for details.
+`ent` is licensed under the terms of the MPL-2.0 license. See the [LICENSE](LICENSE.txt) file for details.
