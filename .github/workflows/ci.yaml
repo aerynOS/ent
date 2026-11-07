@@ -1,0 +1,59 @@
+# SPDX-FileCopyrightText: 2026 aerynOS Developers
+# SPDX-License-Identifier: MPL-2.0
+
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  schedule:
+    - cron: "30 2 * * *"
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  meta:
+    runs-on: ubuntu-latest
+    name: Non-code Checks
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v7
+
+      - name: Check for typos
+        uses: crate-ci/typos@v1
+
+      - name: Check REUSE compliance
+        uses: fsfe/reuse-action@v6
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build & Test
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v7
+
+      - name: Setup Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      - name: Build workspace
+        run: cargo build --workspace --all-features
+
+      - name: Test default features
+        run: cargo test --workspace
+
+      - name: Test all features
+        run: cargo test --workspace --all-features
+
+      - name: Run Clippy
+        run: cargo clippy --workspace --all-targets --all-features -- -D warnings
